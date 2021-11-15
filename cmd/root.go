@@ -3,22 +3,28 @@ package cmd
 import (
 	"os"
 
+	"github.com/bschaatsbergen/hhop/pkg/tls"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
-var rootCmd = &cobra.Command{
-	Use:   "hhop",
-	Short: "hhop - here to trace network routes",
-	Long:  `hhop - here to trace network routes`,
-	Run: func(cmd *cobra.Command, args []string) {
-		logrus.Error("Missed or unknown command.\n\n")
-		cmd.Help()
-	},
-}
+var (
+	Address string
+
+	rootCmd = &cobra.Command{
+		Use:   "hhop",
+		Short: "hhop - here to trace network routes",
+		Long:  `hhop - here to trace network routes`,
+		Run: func(cmd *cobra.Command, args []string) {
+			tls.TestTls(Address)
+		},
+	}
+)
 
 func init() {
 	configureLogLevel()
+
+	rootCmd.Flags().StringVarP(&Address, "address", "a", "", "address to trace")
 }
 
 func configureLogLevel() {
