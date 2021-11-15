@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"math"
+	"os"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -14,14 +15,14 @@ func TestTls(Address string) {
 
 	if err != nil {
 		logrus.Error(err)
-		return
+		os.Exit(1)
 	}
 
 	err = conn.VerifyHostname(Address)
 
 	if err != nil {
 		logrus.Error(err)
-		return
+		os.Exit(1)
 	}
 
 	expirationDate := conn.ConnectionState().PeerCertificates[0].NotAfter

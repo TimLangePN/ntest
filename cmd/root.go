@@ -3,6 +3,7 @@ package cmd
 import (
 	"os"
 
+	"github.com/bschaatsbergen/hhop/pkg/trace"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -15,7 +16,7 @@ var (
 		Short: "hhop - here to trace network routes",
 		Long:  `hhop - here to trace network routes`,
 		Run: func(cmd *cobra.Command, args []string) {
-			logrus.Info("Starting hhop")
+			trace.Trace(Address)
 		},
 	}
 )
