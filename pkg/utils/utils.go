@@ -22,7 +22,7 @@ func ReturnIPv6LocalListener() string {
 	return "::"
 }
 
-func ParseUrl(rawurl string) (domain string, err error) {
+func ParseAddress(rawurl string) (domain string, err error) {
 	u, err := url.ParseRequestURI(rawurl)
 	if err != nil || u.Host == "" {
 		u, repErr := url.ParseRequestURI("https://" + rawurl)

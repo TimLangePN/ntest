@@ -11,11 +11,12 @@ import (
 
 var (
 	Address string
+	debug   bool
 
 	rootCmd = &cobra.Command{
 		Use:   "ntest",
-		Short: "ntest - here to trace network routes",
-		Long:  `ntest - here to trace network routes`,
+		Short: "ntest - run multiple tests against any ip or address 🩺",
+		Long:  `ntest - run multiple tests against any ip or address 🩺`,
 		Run: func(cmd *cobra.Command, args []string) {
 
 			if condition := Address == ""; condition {
@@ -23,7 +24,7 @@ var (
 				os.Exit(1)
 			}
 
-			PerformTests(Address)
+			Test(Address)
 		},
 	}
 )
@@ -31,7 +32,8 @@ var (
 func init() {
 	configureLogLevel()
 
-	rootCmd.Flags().StringVarP(&Address, "address", "a", "", "address to trace")
+	rootCmd.Flags().StringVarP(&Address, "address", "a", "", "ip or address to perform tests against")
+	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", false, "set log level to debug")
 }
 
 func configureLogLevel() {
@@ -53,9 +55,9 @@ func Execute() {
 	}
 }
 
-func PerformTests(Url string) {
+func Test(Address string) {
 
-	domain, err := utils.ParseUrl(Url)
+	domain, err := utils.ParseAddress(Address)
 
 	if err != nil {
 		logrus.Error(err)
@@ -73,4 +75,6 @@ func PerformTests(Url string) {
 	// https.HttpsRedirectCheck(domain)
 
 	tls.TlsCertificateCheck(domain)
+
+	logrus.Info("done")
 }

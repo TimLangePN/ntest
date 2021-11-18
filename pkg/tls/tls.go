@@ -2,7 +2,6 @@ package tls
 
 import (
 	"crypto/tls"
-	"fmt"
 	"math"
 	"os"
 	"time"
@@ -26,8 +25,7 @@ func TlsCertificateCheck(Address string) {
 	err = conn.VerifyHostname(Address)
 
 	if err != nil {
-		logrus.Error(err)
-		os.Exit(1)
+		logrus.Panic(err)
 	}
 
 	expirationDate := conn.ConnectionState().PeerCertificates[0].NotAfter
@@ -35,8 +33,11 @@ func TlsCertificateCheck(Address string) {
 	daysUntilExpiration := math.Round(float64(time.Until(expirationDate).Hours()) / 24)
 
 	if daysUntilExpiration > 1 {
-		logrus.Info(fmt.Sprintf("Certificate for %s expires in %v days", Address, daysUntilExpiration))
+		logrus.WithFields(logrus.Fields{
+			"days": daysUntilExpiration,
+		}).Infof("Certificate for %s expires in", Address)
+
 	} else {
-		logrus.Error(fmt.Sprintf("Certificate for %s is expired!", Address))
+		logrus.Errorf("Certificate for %s is expired!", Address)
 	}
 }
