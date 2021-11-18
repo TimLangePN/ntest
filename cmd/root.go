@@ -3,6 +3,7 @@ package cmd
 import (
 	"os"
 
+	"github.com/bschaatsbergen/ntest/pkg/model"
 	"github.com/bschaatsbergen/ntest/pkg/tls"
 	"github.com/bschaatsbergen/ntest/pkg/utils"
 	"github.com/sirupsen/logrus"
@@ -10,8 +11,7 @@ import (
 )
 
 var (
-	Address string
-	debug   bool
+	options model.Options
 
 	rootCmd = &cobra.Command{
 		Use:   "ntest",
@@ -19,12 +19,12 @@ var (
 		Long:  `ntest - run multiple tests against any ip or address 🩺`,
 		Run: func(cmd *cobra.Command, args []string) {
 
-			if condition := Address == ""; condition {
+			if condition := options.Address == ""; condition {
 				logrus.Error("address flag is required")
 				os.Exit(1)
 			}
 
-			Test(Address)
+			Test(options)
 		},
 	}
 )
@@ -32,8 +32,8 @@ var (
 func init() {
 	configureLogLevel()
 
-	rootCmd.Flags().StringVarP(&Address, "address", "a", "", "ip or address to perform tests against")
-	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", false, "set log level to debug")
+	rootCmd.Flags().StringVarP(&options.Address, "address", "a", "", "ip or address to perform tests against")
+	rootCmd.PersistentFlags().BoolVarP(&options.Debug, "debug", "d", false, "set log level to debug")
 }
 
 func configureLogLevel() {
@@ -55,9 +55,9 @@ func Execute() {
 	}
 }
 
-func Test(Address string) {
+func Test(options model.Options) {
 
-	domain, err := utils.ParseAddress(Address)
+	domain, err := utils.ParseAddress(options.Address)
 
 	if err != nil {
 		logrus.Error(err)
