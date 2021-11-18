@@ -35,6 +35,7 @@ var (
 
 func init() {
 	rootCmd.Flags().StringVarP(&options.Address, "address", "a", "", "ip or address to perform tests against")
+	rootCmd.Flags().IntVar(&options.PacketCount, "packet-count", 1, "amount of packets that should be sent")
 	rootCmd.Flags().BoolVarP(&options.Debug, "debug", "d", false, "set log level to debug")
 }
 
@@ -72,7 +73,7 @@ func Test(options model.Options) {
 		os.Exit(1)
 	}
 
-	ping.MeasureLatency(domain)
+	ping.MeasureLatency(domain, options.PacketCount)
 
 	https.TestHttpsRedirect(domain)
 
