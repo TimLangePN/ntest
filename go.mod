@@ -1,4 +1,4 @@
-module github.com/bschaatsbergen/hhop
+module github.com/bschaatsbergen/ntest
 
 go 1.17
 

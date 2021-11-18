@@ -3,7 +3,7 @@ package cmd
 import (
 	"os"
 
-	"github.com/bschaatsbergen/hhop/pkg/trace"
+	"github.com/bschaatsbergen/hhop/pkg/https"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -12,11 +12,17 @@ var (
 	Address string
 
 	rootCmd = &cobra.Command{
-		Use:   "hhop",
-		Short: "hhop - here to trace network routes",
-		Long:  `hhop - here to trace network routes`,
+		Use:   "ntest",
+		Short: "ntest - here to trace network routes",
+		Long:  `ntest - here to trace network routes`,
 		Run: func(cmd *cobra.Command, args []string) {
-			trace.Trace(Address)
+
+			if condition := Address == ""; condition {
+				logrus.Error("address flag is required")
+				os.Exit(1)
+			}
+
+			PerformTests(Address)
 		},
 	}
 )
@@ -43,5 +49,21 @@ func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		logrus.Error(err)
 		os.Exit(1)
+	}
+}
+
+func PerformTests(Address string) {
+	logrus.Info("Performing tests against: ", Address)
+
+	// addresses := dns.LookupDnsRecords(Address)
+
+	// for _, address := range addresses {
+	// 	logrus.Info(address)
+	// }
+
+	supportsHttps := https.SupportsHttps(Address)
+
+	if supportsHttps {
+		logrus.Info("https is supported")
 	}
 }

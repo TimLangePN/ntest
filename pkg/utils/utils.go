@@ -11,7 +11,7 @@ func IsIPv6(address string) bool {
 }
 
 func ReturnIPv4LocalListener() string {
-	return "0.0.0.0"
+	return "0.0.0.0:0"
 }
 
 func ReturnIPv6LocalListener() string {

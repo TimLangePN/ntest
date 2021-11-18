@@ -15,4 +15,4 @@
 # vendor/
 
 # The binaries we sometimes publish as part of local go-build
-hhop
+ntest
