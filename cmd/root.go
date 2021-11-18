@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"net/url"
 	"os"
 
 	"github.com/bschaatsbergen/ntest/pkg/tls"
+	"github.com/bschaatsbergen/ntest/pkg/utils"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -53,22 +53,24 @@ func Execute() {
 	}
 }
 
-func PerformTests(Address string) {
+func PerformTests(Url string) {
 
-	domain, err := url.Parse(Address)
+	domain, err := utils.ParseUrl(Url)
 
 	if err != nil {
 		logrus.Error(err)
 		os.Exit(1)
 	}
 
-	// addresses := dns.LookupDnsRecords(Address)
+	// addresses := dns.LookupDnsRecords(domain)
 
 	// for _, address := range addresses {
 	// 	logrus.Info(address)
 	// }
 
-	// https.HttpsRedirectCheck(Address)
+	logrus.Info(domain)
 
-	tls.TlsCertificateCheck(domain.Host)
+	// https.HttpsRedirectCheck(domain)
+
+	tls.TlsCertificateCheck(domain)
 }
