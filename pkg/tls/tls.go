@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"math"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -42,7 +43,7 @@ func TestTLSCertificate(Address string) {
 
 	// Print the certificate expiration in number of days left.
 	if daysUntilExpiration > 0 {
-		logrus.Infof("Certificate for %s expires in %v days", leafCert.DNSNames, daysUntilExpiration)
+		logrus.Infof("Certificate for %s expires in %v days", strings.Join(leafCert.DNSNames[:], ", "), daysUntilExpiration)
 
 	} else {
 		logrus.Errorf("Certificate for %s is expired!", Address)

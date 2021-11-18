@@ -2,6 +2,7 @@ package dns
 
 import (
 	"net"
+	"strings"
 
 	"github.com/sirupsen/logrus"
 )
@@ -13,5 +14,5 @@ func LookupHost(Address string) {
 		logrus.Error(err)
 	}
 
-	logrus.Infof("Hosts: %s", addresses)
+	logrus.Infof("DNS hosts: %s", strings.Join(addresses[:], ", "))
 }
