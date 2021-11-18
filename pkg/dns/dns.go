@@ -6,11 +6,12 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func LookupDnsRecords(Address string) []string {
-	adresses, err := net.LookupHost(Address)
+// Looks up the given host using the local resolver.
+func LookupHost(Address string) {
+	addresses, err := net.LookupHost(Address)
 	if err != nil {
 		logrus.Error(err)
 	}
 
-	return adresses
+	logrus.Infof("Hosts: %s", addresses)
 }

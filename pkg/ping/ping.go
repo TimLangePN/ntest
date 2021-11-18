@@ -1,6 +1,8 @@
 package latency
 
 import (
+	"os"
+
 	"github.com/go-ping/ping"
 	"github.com/sirupsen/logrus"
 )
@@ -11,10 +13,11 @@ func Ping(Address string) *ping.Statistics {
 
 	pinger, err := ping.NewPinger(Address)
 	if err != nil {
-		logrus.Panic(err)
+		logrus.Error(err)
+		os.Exit(1)
 	}
 
-	defer pinger.Stop()
+	defer pinger.Stop() // Gracefully close the pinger after it's done.
 
 	pinger.Count = 1
 
@@ -22,7 +25,8 @@ func Ping(Address string) *ping.Statistics {
 
 	err = pinger.Run() // Blocks until finished.
 	if err != nil {
-		logrus.Panic(err)
+		logrus.Error(err)
+		os.Exit(1)
 	}
 
 	logrus.Debugf("Packets: Sent = %d, Received = %d, Lost = %d (%d%% loss)", pinger.PacketsSent, pinger.PacketsRecv, pinger.PacketsSent-pinger.PacketsRecv, int(pinger.Statistics().PacketLoss))

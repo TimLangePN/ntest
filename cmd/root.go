@@ -3,8 +3,10 @@ package cmd
 import (
 	"os"
 
+	"github.com/bschaatsbergen/ntest/pkg/dns"
 	"github.com/bschaatsbergen/ntest/pkg/https"
 	"github.com/bschaatsbergen/ntest/pkg/model"
+	ping "github.com/bschaatsbergen/ntest/pkg/ping"
 	"github.com/bschaatsbergen/ntest/pkg/tls"
 	"github.com/bschaatsbergen/ntest/pkg/utils"
 	"github.com/sirupsen/logrus"
@@ -70,13 +72,11 @@ func Test(options model.Options) {
 		os.Exit(1)
 	}
 
-	// addresses := dns.LookupDnsRecords(domain)
-
-	// for _, address := range addresses {
-	// 	logrus.Info(address)
-	// }
+	ping.MeasureLatency(domain)
 
 	https.TestHttpsRedirect(domain)
 
 	tls.TestTLSCertificate(domain)
+
+	dns.LookupHost(domain)
 }
