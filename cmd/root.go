@@ -81,5 +81,5 @@ func Test(options model.Options) {
 
 	tls.TestTLSCertificate(domain)
 
-	ping.MeasureLatency(domain)
+	ping.CheckFirstHop(domain)
 }

@@ -13,11 +13,19 @@ func Ping(Address string) *ping.Statistics {
 	if err != nil {
 		logrus.Panic(err)
 	}
+
+	defer pinger.Stop()
+
 	pinger.Count = 1
+
+	logrus.Debugf("Sending %d packet to: %s", pinger.Count, pinger.Addr())
+
 	err = pinger.Run() // Blocks until finished.
 	if err != nil {
 		logrus.Panic(err)
 	}
+
+	logrus.Debugf("Packets: Sent = %d, Received = %d, Lost = %d (%d%% loss)", pinger.PacketsSent, pinger.PacketsRecv, pinger.PacketsSent-pinger.PacketsRecv, int(pinger.Statistics().PacketLoss))
 
 	return pinger.Statistics() // get send/receive/duplicate/rtt stats
 }
@@ -27,7 +35,5 @@ func MeasureLatency(Address string) {
 
 	stats := Ping(Address)
 
-	rttInMs := stats.AvgRtt.Microseconds() // Fix this later, so it returns a float (e.g. `13.4123ms`).
-
-	logrus.Infof("Round-trip time: %fms", rttInMs)
+	logrus.Infof("Round-trip time: %dms", stats.AvgRtt.Milliseconds()) // Fix this later, so it returns a float (e.g. `13.4123ms`).
 }
