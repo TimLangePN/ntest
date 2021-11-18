@@ -10,8 +10,13 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func TestTls(Address string) {
-	conn, err := tls.Dial("tcp", fmt.Sprintf("%s:443", string(Address)), nil)
+const (
+	httpsPort = ":443"
+)
+
+func TlsCertificateCheck(Address string) {
+
+	conn, err := tls.Dial("tcp", Address+httpsPort, nil)
 
 	if err != nil {
 		logrus.Error(err)

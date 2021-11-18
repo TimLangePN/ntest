@@ -1,9 +1,10 @@
 package cmd
 
 import (
+	"net/url"
 	"os"
 
-	"github.com/bschaatsbergen/hhop/pkg/https"
+	"github.com/bschaatsbergen/ntest/pkg/tls"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -53,7 +54,13 @@ func Execute() {
 }
 
 func PerformTests(Address string) {
-	logrus.Info("Performing tests against: ", Address)
+
+	domain, err := url.Parse(Address)
+
+	if err != nil {
+		logrus.Error(err)
+		os.Exit(1)
+	}
 
 	// addresses := dns.LookupDnsRecords(Address)
 
@@ -61,9 +68,7 @@ func PerformTests(Address string) {
 	// 	logrus.Info(address)
 	// }
 
-	supportsHttps := https.SupportsHttps(Address)
+	// https.HttpsRedirectCheck(Address)
 
-	if supportsHttps {
-		logrus.Info("https is supported")
-	}
+	tls.TlsCertificateCheck(domain.Host)
 }

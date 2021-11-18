@@ -8,20 +8,20 @@ import (
 )
 
 const (
+	httpProtocol  = "http://"
 	httpsProtocol = "https://"
 )
 
-func SupportsHttps(Address string) bool {
+func HttpsRedirectCheck(Address string) {
 	resp, err := http.Get(Address)
 
 	if err != nil {
 		logrus.Error(err)
 	}
 
-	// We assume that a redirect has been performed.
 	if strings.HasPrefix(resp.Request.URL.String(), httpsProtocol) {
-		return true
+		logrus.Info("HTTPS redirect detected")
 	} else {
-		return false
+		logrus.Info("HTTPS redirect did *not* happen")
 	}
 }
