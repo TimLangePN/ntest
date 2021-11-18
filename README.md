@@ -4,7 +4,7 @@
 <p align="center">
     <a href="https://github.com/bschaatsbergen/ntest/releases"><img src="https://img.shields.io/github/downloads/bschaatsbergen/ntest/total.svg" alt="GitHub Downloads"></a>
     <a href="https://github.com/bschaatsbergen/ntest/releases/latest"><img src="https://img.shields.io/github/release/bschaatsbergen/ntest.svg" alt="Latest Release"></a>
-    <a href="https://github.com/bschaatsbergen/ntest/actions/workflows/go.yaml"><img src="https://img.shields.io/github/workflow/status/bschaatsbergen/ntest/Go" alt="Build Status"></a>
+    <a href="https://github.com/bschaatsbergen/ntest/actions/workflows/go-ci.yaml"><img src="https://img.shields.io/github/workflow/status/bschaatsbergen/ntest/Go-ci" alt="Build Status"></a>
     <a href="https://github.com/bschaatsbergen/ntest/issues"><img src="https://img.shields.io/badge/contributions-welcome-ff69b4.svg" alt="Contributions Welcome"></a>
 </p>
 
@@ -14,7 +14,7 @@ Foobar
 
 ## Installation
 
-### Binaries 
+### Binaries
 
 If you prefer grabbing ntest its binaries, download the latest from the the **[GitHub releases](https://github.com/bschaatsbergen/ntest/releases)** page.
 

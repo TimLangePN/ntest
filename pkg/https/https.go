@@ -12,7 +12,7 @@ const (
 	httpsProtocol = "https://"
 )
 
-func HttpsRedirectCheck(Address string) {
+func TestHttpsRedirect(Address string) {
 	resp, err := http.Get(httpProtocol + Address)
 
 	if err != nil {
@@ -20,8 +20,8 @@ func HttpsRedirectCheck(Address string) {
 	}
 
 	if strings.HasPrefix(resp.Request.URL.String(), httpsProtocol) {
-		logrus.Infof("HTTPS redirect detected, got %s", resp.Request.Response.Status)
+		logrus.Info("HTTPS redirect detected")
 	} else {
-		logrus.Warnf("HTTPS redirect undetected got %s", resp.Request.Response.Status)
+		logrus.Warn("HTTPS redirect undetected")
 	}
 }

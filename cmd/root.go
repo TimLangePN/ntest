@@ -76,7 +76,7 @@ func Test(options model.Options) {
 	// 	logrus.Info(address)
 	// }
 
-	https.HttpsRedirectCheck(domain)
+	https.TestHttpsRedirect(domain)
 
-	tls.CheckTLSCertificate(domain)
+	tls.TestTLSCertificate(domain)
 }
