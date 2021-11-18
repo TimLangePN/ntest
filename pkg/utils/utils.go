@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
 // Checks whether the given string is a valid IPv4 address.
@@ -27,12 +29,14 @@ func ReturnIPv6LocalListener() string {
 }
 
 // Wrapper for url.ParseRequestURI(), handles the case where the `Host` property might end up empty.
-func ParseAddress(rawurl string) (domain string, err error) {
-	u, err := url.ParseRequestURI(rawurl)
+func ParseAddress(address string) (domain string, err error) {
+	u, err := url.ParseRequestURI(address)
+
+	// Assuming someone passed a url without a protocol/scheme, we could fine tune this logic later.
 	if err != nil || u.Host == "" {
-		u, repErr := url.ParseRequestURI("https://" + rawurl)
+		u, repErr := url.ParseRequestURI("https://" + address)
 		if repErr != nil {
-			fmt.Printf("Could not parse raw url: %s, error: %v", rawurl, err)
+			fmt.Printf("Could not parse raw url: %s, error: %v", address, err)
 			return
 		}
 		domain = u.Host
@@ -41,5 +45,7 @@ func ParseAddress(rawurl string) (domain string, err error) {
 	}
 
 	domain = u.Host
+
+	logrus.Debugf("Parsed domain: %s", domain)
 	return
 }

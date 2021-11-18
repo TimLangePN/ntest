@@ -24,23 +24,25 @@ var (
 				os.Exit(1)
 			}
 
+			configureLogLevel(options.Debug)
 			Test(options)
 		},
 	}
 )
 
 func init() {
-	configureLogLevel()
-
 	rootCmd.Flags().StringVarP(&options.Address, "address", "a", "", "ip or address to perform tests against")
-	rootCmd.PersistentFlags().BoolVarP(&options.Debug, "debug", "d", false, "set log level to debug")
+	rootCmd.Flags().BoolVarP(&options.Debug, "debug", "d", false, "set log level to debug")
 }
 
 // If an existing log level environment variable is present, re-use that to configure logrus.
-func configureLogLevel() {
+func configureLogLevel(debugLogsEnabled bool) {
 	logLevelStr, ok := os.LookupEnv("LOG_LEVEL")
 	if !ok {
 		logLevelStr = "info"
+	}
+	if debugLogsEnabled {
+		logLevelStr = "debug"
 	}
 	logLevel, err := logrus.ParseLevel(logLevelStr)
 	if err != nil {
@@ -59,6 +61,7 @@ func Execute() {
 // Runs a set of tests against the provided address.
 func Test(options model.Options) {
 
+	// We first parse the given address and return the address.Host.
 	domain, err := utils.ParseAddress(options.Address)
 
 	if err != nil {
@@ -72,11 +75,9 @@ func Test(options model.Options) {
 	// 	logrus.Info(address)
 	// }
 
-	logrus.Info(domain)
-
 	// https.HttpsRedirectCheck(domain)
 
-	tls.TlsCertificateCheck(domain)
+	tls.CheckTLSCertificate(domain)
 
-	logrus.Info("done")
+	logrus.Debug("I'm a debug log!")
 }
