@@ -31,8 +31,7 @@ func CheckTLSCertificate(Address string) {
 		logrus.Error(err)
 	}
 
-	// Get the `NotAfter` time for the leaf certificate
-	// that the connection is verified against.
+	// Get end-entity certificate (leaf certificate) from the X.509 certificate chain.
 	leafCert := conn.ConnectionState().PeerCertificates[0]
 
 	// Calculate the time left until the certificate expires.
