@@ -19,6 +19,8 @@ func TestHttpsRedirect(Address string) {
 		logrus.Error(err)
 	}
 
+	defer resp.Body.Close() // Free file descriptor to prevent resource leak.
+
 	if strings.HasPrefix(resp.Request.URL.String(), httpsProtocol) {
 		logrus.Info("HTTPS redirect detected")
 	} else {

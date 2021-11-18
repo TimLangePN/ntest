@@ -24,6 +24,8 @@ func TestTLSCertificate(Address string) {
 		os.Exit(1)
 	}
 
+	defer conn.Close() // close the underlying TLS connection.
+
 	// Check if the peer certificate chain is valid.
 	err = conn.VerifyHostname(Address)
 
