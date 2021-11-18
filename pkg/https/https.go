@@ -13,15 +13,15 @@ const (
 )
 
 func HttpsRedirectCheck(Address string) {
-	resp, err := http.Get(Address)
+	resp, err := http.Get(httpProtocol + Address)
 
 	if err != nil {
 		logrus.Error(err)
 	}
 
 	if strings.HasPrefix(resp.Request.URL.String(), httpsProtocol) {
-		logrus.Info("HTTPS redirect detected")
+		logrus.Infof("HTTPS redirect detected, got %s", resp.Request.Response.Status)
 	} else {
-		logrus.Info("HTTPS redirect did *not* happen")
+		logrus.Warnf("HTTPS redirect undetected got %s", resp.Request.Response.Status)
 	}
 }

@@ -33,16 +33,15 @@ func CheckTLSCertificate(Address string) {
 
 	// Get the `NotAfter` time for the leaf certificate
 	// that the connection is verified against.
-	expirationDate := conn.ConnectionState().PeerCertificates[0].NotAfter
+	leafCert := conn.ConnectionState().PeerCertificates[0]
 
 	// Calculate the time left until the certificate expires.
-	daysUntilExpiration := math.Round(float64(time.Until(expirationDate).Hours()) / 24)
+	// This is rather complex, we can split it up later.
+	daysUntilExpiration := math.Round(float64(time.Until(leafCert.NotAfter).Hours()) / 24)
 
 	// Print the certificate expiration in number of days left.
 	if daysUntilExpiration > 0 {
-		logrus.WithFields(logrus.Fields{
-			"days": daysUntilExpiration,
-		}).Infof("Certificate for %s expires in", Address)
+		logrus.Infof("Certificate for %s expires in %v days", leafCert.DNSNames, daysUntilExpiration)
 
 	} else {
 		logrus.Errorf("Certificate for %s is expired!", Address)

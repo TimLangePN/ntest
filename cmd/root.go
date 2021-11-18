@@ -3,6 +3,7 @@ package cmd
 import (
 	"os"
 
+	"github.com/bschaatsbergen/ntest/pkg/https"
 	"github.com/bschaatsbergen/ntest/pkg/model"
 	"github.com/bschaatsbergen/ntest/pkg/tls"
 	"github.com/bschaatsbergen/ntest/pkg/utils"
@@ -75,7 +76,7 @@ func Test(options model.Options) {
 	// 	logrus.Info(address)
 	// }
 
-	// https.HttpsRedirectCheck(domain)
+	https.HttpsRedirectCheck(domain)
 
 	tls.CheckTLSCertificate(domain)
 }
