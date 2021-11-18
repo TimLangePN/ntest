@@ -5,7 +5,6 @@ import (
 
 	"github.com/bschaatsbergen/ntest/pkg/https"
 	"github.com/bschaatsbergen/ntest/pkg/model"
-	ping "github.com/bschaatsbergen/ntest/pkg/ping"
 	"github.com/bschaatsbergen/ntest/pkg/tls"
 	"github.com/bschaatsbergen/ntest/pkg/utils"
 	"github.com/sirupsen/logrus"
@@ -80,6 +79,4 @@ func Test(options model.Options) {
 	https.TestHttpsRedirect(domain)
 
 	tls.TestTLSCertificate(domain)
-
-	ping.CheckFirstHop(domain)
 }
