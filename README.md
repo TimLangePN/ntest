@@ -43,6 +43,16 @@ Flags:
       --packet-count int   amount of packets that should be sent (default 1)
 ```
 
+ntest currently performs the following tests:
+
+```sh
+❯ ntest -a bschaatsbergen.com
+INFO[0020] Round-trip time: 13ms                        
+INFO[0036] HTTPS redirect detected                      
+INFO[0036] Certificate for bschaatsbergen.com, *.bschaatsbergen.com expires in 186 days 
+INFO[0036] DNS hosts: 52.222.138.52, 52.222.138.100, 52.222.138.23, 52.222.138.36
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
