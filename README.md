@@ -37,9 +37,10 @@ Usage:
   ntest [flags]
 
 Flags:
-  -a, --address string   ip or address to perform tests against
-  -d, --debug            set log level to debug
-  -h, --help             help for ntest
+  -a, --address string     ip or address to perform tests against
+  -d, --debug              set log level to debug
+  -h, --help               help for ntest
+      --packet-count int   amount of packets that should be sent (default 1)
 ```
 
 ## License
