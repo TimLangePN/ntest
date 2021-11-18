@@ -27,4 +27,6 @@ func TestHttpsRedirect(Address string) {
 	} else {
 		logrus.Warn("HTTPS redirect undetected")
 	}
+
+	logrus.Debugf("HTTPS redirect returned a: %s", resp.Status)
 }
