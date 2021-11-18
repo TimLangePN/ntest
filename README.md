@@ -30,7 +30,16 @@ If you prefer grabbing ntest its binaries, download the latest from the the **[G
 Foobar
 
 ```sh
-❯ ntest -a bschaatsbergen.com
+❯ ntest -h
+ntest - run multiple tests against any ip or address 🩺
+
+Usage:
+  ntest [flags]
+
+Flags:
+  -a, --address string   ip or address to perform tests against
+  -d, --debug            set log level to debug
+  -h, --help             help for ntest
 ```
 
 ## License
