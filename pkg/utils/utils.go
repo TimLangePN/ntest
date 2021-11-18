@@ -31,7 +31,6 @@ func ReturnIPv6LocalListener() string {
 // Wrapper for url.ParseRequestURI(), handles the case where the `Host` property might end up empty.
 func ParseAddress(address string) (domain string, err error) {
 	u, err := url.ParseRequestURI(address)
-
 	// Assuming someone passed a url without a protocol/scheme, we could fine tune this logic later.
 	if err != nil || u.Host == "" {
 		u, repErr := url.ParseRequestURI("https://" + address)
@@ -41,11 +40,13 @@ func ParseAddress(address string) (domain string, err error) {
 		}
 		domain = u.Host
 		err = nil
+
+		logrus.Debugf("Parsed address: %s", domain)
 		return
 	}
 
 	domain = u.Host
 
-	logrus.Debugf("Parsed domain: %s", domain)
+	logrus.Debugf("Parsed address: %s", domain)
 	return
 }
