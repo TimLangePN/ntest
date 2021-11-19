@@ -53,6 +53,17 @@ INFO[0036] Certificate for bschaatsbergen.com, *.bschaatsbergen.com expires in 1
 INFO[0036] DNS hosts: 52.222.138.52, 52.222.138.100, 52.222.138.23, 52.222.138.36
 ```
 
+It's also possible measure the average round-trip time by sending multiple packets
+
+```sh
+❯ ntest -a bschaatsbergen.com -d --packet-count 5
+DEBU[0000] Parsed address: bschaatsbergen.com           
+DEBU[0000] Sending 5 packets to: bschaatsbergen.com     
+DEBU[0004] Packets: Sent = 5, Received = 5, Lost = 0 (0% loss) 
+INFO[0004] Round-trip time: 14ms                        
+...
+```
+
 ## Contributing
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
