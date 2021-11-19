@@ -1,6 +1,6 @@
 <p align="center"><img src="https://twemoji.maxcdn.com/2/svg/1fa7a.svg" height="64" alt="Project Logo"></p>
 <h3 align="center">ntest</h3>
-<p align="center">run multiple tests against any ip or address 🩺</p>
+<p align="center">ntest is a cross-platform cli app that runs multiple tests against any ip address.</p>
 <p align="center">
     <a href="https://github.com/bschaatsbergen/ntest/releases"><img src="https://img.shields.io/github/downloads/bschaatsbergen/ntest/total.svg" alt="GitHub Downloads"></a>
     <a href="https://github.com/bschaatsbergen/ntest/releases/latest"><img src="https://img.shields.io/github/release/bschaatsbergen/ntest.svg" alt="Latest Release"></a>
