@@ -4,7 +4,7 @@
 <p align="center">
     <a href="https://github.com/bschaatsbergen/ntest/releases"><img src="https://img.shields.io/github/downloads/bschaatsbergen/ntest/total.svg" alt="GitHub Downloads"></a>
     <a href="https://github.com/bschaatsbergen/ntest/releases/latest"><img src="https://img.shields.io/github/release/bschaatsbergen/ntest.svg" alt="Latest Release"></a>
-    <a href="https://github.com/bschaatsbergen/ntest/actions/workflows/go-ci.yaml"><img src="https://img.shields.io/github/workflow/status/bschaatsbergen/ntest/Go" alt="Build Status"></a>
+    <a href="https://github.com/bschaatsbergen/ntest/actions/workflows/go-ci.yaml"><img src="https://img.shields.io/github/workflow/status/bschaatsbergen/ntest/Build" alt="Build Status"></a>
     <a href="https://github.com/bschaatsbergen/ntest/issues"><img src="https://img.shields.io/badge/contributions-welcome-ff69b4.svg" alt="Contributions Welcome"></a>
 </p>
 
@@ -12,7 +12,7 @@
 
 Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain. It currently performs the following tests: _https redirect, certificate expiration, average round-trip time, measure packet-loss and DNS host look-up_.
 
-## Installation
+## Installation 
 
 ### Binaries
 
