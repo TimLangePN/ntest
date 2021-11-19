@@ -27,7 +27,7 @@ If you prefer grabbing `ntest` its binaries, download the latest from the the **
 
 ## Usage
 
-Using `ntest` is fairly simple. You only need to provide the address by using the `-a` flag.
+Using `ntest` is fairly simple. You only need to provide the address by using the `-a` flag, doing so will already allow you to perform all the tests.
 
 ```sh
 ❯ nstest -a bschaatsbergen.com
