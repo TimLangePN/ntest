@@ -10,7 +10,7 @@
 
 ## About ntest
 
-Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain. It currently performs the following tests: *https redirect, certificate expiration, average round-trip time, measure packet-loss and DNS host look-up*.
+Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain. It currently performs the following tests: _https redirect, certificate expiration, average round-trip time, measure packet-loss and DNS host look-up_.
 
 ## Installation
 
@@ -27,7 +27,7 @@ If you prefer grabbing `ntest` its binaries, download the latest from the the **
 
 ## Usage
 
-Using `ntest` is fairly simple. It's mandatory to provide an address by using the `-a` flag.
+Using `ntest` is fairly simple. You only need to provide the address by using the `-a` flag.
 
 ```sh
 ❯ nstest -a bschaatsbergen.com
