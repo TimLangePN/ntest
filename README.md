@@ -10,7 +10,7 @@
 
 ## About ntest
 
-Foobar
+Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain.
 
 ## Installation
 
