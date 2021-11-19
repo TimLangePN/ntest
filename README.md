@@ -53,10 +53,11 @@ INFO[0036] Certificate for bschaatsbergen.com, *.bschaatsbergen.com expires in 1
 INFO[0036] DNS hosts: 52.222.138.52, 52.222.138.100, 52.222.138.23, 52.222.138.36
 ```
 
-It's also possible measure the average round-trip time by sending multiple packets
+It's also possible measure the average round-trip time by sending multiple packets.
+In addition, adding the `-d` flag allows you to see the debug logs regarding the packets.
 
 ```sh
-❯ ntest -a bschaatsbergen.com -d --packet-count 5
+❯ ntest -a bschaatsbergen.com --packet-count 5 -d
 DEBU[0000] Parsed address: bschaatsbergen.com           
 DEBU[0000] Sending 5 packets to: bschaatsbergen.com     
 DEBU[0004] Packets: Sent = 5, Received = 5, Lost = 0 (0% loss) 
