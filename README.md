@@ -53,6 +53,10 @@ INFO[0036] Certificate for bschaatsbergen.com, *.bschaatsbergen.com expires in 1
 INFO[0036] DNS hosts: 52.222.138.52, 52.222.138.100, 52.222.138.23, 52.222.138.36
 ```
 
+## Contributing
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
