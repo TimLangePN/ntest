@@ -27,7 +27,7 @@ If you prefer grabbing ntest its binaries, download the latest from the the **[G
 
 ## Usage
 
-Foobar
+Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain.
 
 ```sh
 ❯ ntest -h
@@ -43,13 +43,13 @@ Flags:
       --packet-count int   amount of packets that should be sent (default 1)
 ```
 
-ntest currently performs the following tests:
+`ntest` currently performs the following tests:
 
 ```sh
 ❯ ntest -a bschaatsbergen.com
-INFO[0020] Round-trip time: 13ms                        
-INFO[0036] HTTPS redirect detected                      
-INFO[0036] Certificate for bschaatsbergen.com, *.bschaatsbergen.com expires in 186 days 
+INFO[0020] Round-trip time: 13ms
+INFO[0036] HTTPS redirect detected
+INFO[0036] Certificate for bschaatsbergen.com, *.bschaatsbergen.com expires in 186 days
 INFO[0036] DNS hosts: 52.222.138.52, 52.222.138.100, 52.222.138.23, 52.222.138.36
 ```
 
@@ -58,16 +58,16 @@ Additionally, adding the `-d` flag allows you to see the debug logs regarding th
 
 ```sh
 ❯ ntest -a bschaatsbergen.com --packet-count 5 -d
-DEBU[0000] Parsed address: bschaatsbergen.com           
-DEBU[0000] Sending 5 packets to: bschaatsbergen.com     
-DEBU[0004] Packets: Sent = 5, Received = 5, Lost = 0 (0% loss) 
-INFO[0004] Round-trip time: 14ms                        
+DEBU[0000] Parsed address: bschaatsbergen.com
+DEBU[0000] Sending 5 packets to: bschaatsbergen.com
+DEBU[0004] Packets: Sent = 5, Received = 5, Lost = 0 (0% loss)
+INFO[0004] Round-trip time: 14ms
 ...
 ```
 
 ## Contributing
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+If you have a suggestion that would make `ntest` better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 
 ## License
 
