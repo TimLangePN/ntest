@@ -10,7 +10,7 @@
 
 ## About ntest
 
-Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain. It currently performs the following tests: https redirect, certificate expiration, average round-trip time, measure packet-loss and DNS hosts look-up.
+Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain. It currently performs the following tests: <i> https redirect, certificate expiration, average round-trip time, measure packet-loss and DNS hosts look-up </i>.
 
 ## Installation
 
