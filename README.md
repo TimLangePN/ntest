@@ -54,7 +54,7 @@ INFO[0036] DNS hosts: 52.222.138.52, 52.222.138.100, 52.222.138.23, 52.222.138.3
 ```
 
 It's also possible measure the average round-trip time by sending multiple packets.
-In addition, adding the `-d` flag allows you to see the debug logs regarding the packets.
+Additionally, adding the `-d` flag allows you to see the debug logs regarding the packets.
 
 ```sh
 ❯ ntest -a bschaatsbergen.com --packet-count 5 -d
