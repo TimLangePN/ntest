@@ -10,13 +10,13 @@
 
 ## About ntest
 
-Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain. It currently performs the following tests: *https redirect, certificate expiration, average round-trip time, measure packet-loss and DNS hosts look-up*.
+Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain. It currently performs the following tests: *https redirect, certificate expiration, average round-trip time, measure packet-loss and DNS host look-up*.
 
 ## Installation
 
 ### Binaries
 
-If you prefer grabbing ntest its binaries, download the latest from the the **[GitHub releases](https://github.com/bschaatsbergen/ntest/releases)** page.
+If you prefer grabbing `ntest` its binaries, download the latest from the the **[GitHub releases](https://github.com/bschaatsbergen/ntest/releases)** page.
 
 ### Brew
 
@@ -27,7 +27,13 @@ If you prefer grabbing ntest its binaries, download the latest from the the **[G
 
 ## Usage
 
-Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain.
+Using `ntest` is fairly simple. It's mandatory to provide an address by using the `-a` flag.
+
+```sh
+❯ nstest -a bschaatsbergen.com
+```
+
+See the other optional flags below.
 
 ```sh
 ❯ ntest -h
@@ -43,7 +49,7 @@ Flags:
       --packet-count int   amount of packets that should be sent (default 1)
 ```
 
-`ntest` currently performs the following tests:
+`ntest` in action:
 
 ```sh
 ❯ ntest -a bschaatsbergen.com
