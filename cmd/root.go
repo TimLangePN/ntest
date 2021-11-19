@@ -18,8 +18,8 @@ var (
 
 	rootCmd = &cobra.Command{
 		Use:   "ntest",
-		Short: "ntest - run multiple tests against any ip or address 🩺",
-		Long:  `ntest - run multiple tests against any ip or address 🩺`,
+		Short: "ntest - cross-platform cli app that runs multiple tests against any address.",
+		Long:  `ntest - cross-platform cli app that runs multiple tests against any address.`,
 		Run: func(cmd *cobra.Command, args []string) {
 
 			if condition := options.Address == ""; condition {
