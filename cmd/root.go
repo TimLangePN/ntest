@@ -14,12 +14,15 @@ import (
 )
 
 var (
+	version string
+
 	options model.Options
 
 	rootCmd = &cobra.Command{
-		Use:   "ntest",
-		Short: "ntest - cross-platform cli app that runs multiple tests against any address.",
-		Long:  `ntest - cross-platform cli app that runs multiple tests against any address.`,
+		Use:     "ntest",
+		Short:   "ntest - cross-platform cli app that runs multiple tests against any address.",
+		Long:    `ntest - cross-platform cli app that runs multiple tests against any address.`,
+		Version: version, // The version is set during the build by making using of `go build -ldflags`
 		Run: func(cmd *cobra.Command, args []string) {
 
 			if condition := options.Address == ""; condition {
