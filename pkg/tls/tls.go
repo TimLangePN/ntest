@@ -14,7 +14,7 @@ const (
 	httpsPort = ":443"
 )
 
-// Performs a TLS handshake with the given server and returns the TLS connection
+// TestTLSCertificate Performs a TLS handshake with the given server and returns the TLS connection
 // in order to be able to perform further operations on it, e.g. calculate the leaf certificate's expiration date.
 func TestTLSCertificate(Address string) {
 

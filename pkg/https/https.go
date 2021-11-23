@@ -12,7 +12,7 @@ const (
 	httpsProtocol = "https://"
 )
 
-// Tests whether a host redirects us to https.
+// TestHttpsRedirect Tests whether a host redirects us to https.
 func TestHttpsRedirect(Address string) {
 	resp, err := http.Get(httpProtocol + Address)
 

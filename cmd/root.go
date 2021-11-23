@@ -39,7 +39,7 @@ func init() {
 	rootCmd.Flags().BoolVarP(&options.Debug, "debug", "d", false, "set log level to debug")
 }
 
-// If an existing log level environment variable is present, re-use that to configure logrus.
+// configureLogLevel If an existing log level environment variable is present, re-use that to configure logrus.
 func configureLogLevel(debugLogsEnabled bool) {
 	logLevelStr, ok := os.LookupEnv("LOG_LEVEL")
 	if !ok {
@@ -62,7 +62,7 @@ func Execute() {
 	}
 }
 
-// Runs a set of tests against the provided address.
+// Test Runs a set of tests against the provided address.
 func Test(options model.Options) {
 
 	// We first parse the given address and return the address.Host.

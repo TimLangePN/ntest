@@ -38,7 +38,7 @@ func Ping(Address string, PacketCount int) *ping.Statistics {
 	return pinger.Statistics() // get send/receive/duplicate/rtt stats
 }
 
-// Exposes the average round trip time in milliseconds resolved from the Ping function.
+// MeasureLatency Exposes the average round trip time in milliseconds resolved from the Ping function.
 func MeasureLatency(Address string, PacketCount int) {
 
 	stats := Ping(Address, PacketCount)
