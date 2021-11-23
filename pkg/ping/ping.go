@@ -1,14 +1,16 @@
-package latency
+package ping
 
 import (
 	"github.com/go-ping/ping"
 	log "github.com/sirupsen/logrus"
 )
 
-// Ping function to ping a host and return a set of statistics.
-// Uses the github.com/go-ping/ping module.
-func Ping(Address string, PacketCount int) *ping.Statistics {
+var (
+	Statistics *ping.Statistics // Ping statistics that are set when calling pingAddress.
+)
 
+// pingAddress Ping a host and return a set of statistics.
+func pingAddress(Address string, PacketCount int) {
 	pinger, err := ping.NewPinger(Address)
 	if err != nil {
 		log.Fatal(err)
@@ -31,13 +33,16 @@ func Ping(Address string, PacketCount int) *ping.Statistics {
 
 	log.Debugf("Packets: Sent = %d, Received = %d, Lost = %d (%d%% loss)", pinger.PacketsSent, pinger.PacketsRecv, pinger.PacketsSent-pinger.PacketsRecv, int(pinger.Statistics().PacketLoss))
 
-	return pinger.Statistics() // get send/receive/duplicate/rtt stats
+	Statistics = pinger.Statistics()
 }
 
-// MeasureLatency Exposes the average round trip time in milliseconds resolved from the Ping function.
-func MeasureLatency(Address string, PacketCount int) {
+// Ping is a thin wrapper around the pingAddress function
+func Ping(Address string, PacketCount int) {
+	pingAddress(Address, PacketCount)
 
-	stats := Ping(Address, PacketCount)
+	if Statistics.PacketLoss > 0 {
+		log.Warnf("Detected %d%% packet loss!", int(Statistics.PacketLoss))
+	}
 
-	log.Infof("Round-trip time: %dms", stats.AvgRtt.Milliseconds()) // Fix this later, so it returns a float (e.g. `13.4123ms`).
+	log.Infof("Round-trip time: %dms", Statistics.AvgRtt.Milliseconds())
 }

@@ -6,7 +6,7 @@ import (
 	"github.com/bschaatsbergen/ntest/pkg/dns"
 	"github.com/bschaatsbergen/ntest/pkg/https"
 	"github.com/bschaatsbergen/ntest/pkg/model"
-	ping "github.com/bschaatsbergen/ntest/pkg/ping"
+	"github.com/bschaatsbergen/ntest/pkg/ping"
 	"github.com/bschaatsbergen/ntest/pkg/tls"
 	"github.com/bschaatsbergen/ntest/pkg/utils"
 	log "github.com/sirupsen/logrus"
@@ -74,7 +74,7 @@ func Test(options model.Options) {
 		log.Fatal(err)
 	}
 
-	ping.MeasureLatency(domain, options.PacketCount)
+	ping.Ping(domain, options.PacketCount)
 
 	https.TestHttpsRedirect(domain)
 
