@@ -3,11 +3,10 @@ package tls
 import (
 	"crypto/tls"
 	"math"
-	"os"
 	"strings"
 	"time"
 
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -21,8 +20,7 @@ func TestTLSCertificate(Address string) {
 	conn, err := tls.Dial("tcp", Address+httpsPort, nil)
 
 	if err != nil {
-		logrus.Error(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 
 	defer conn.Close() // close the underlying TLS connection.
@@ -31,7 +29,7 @@ func TestTLSCertificate(Address string) {
 	err = conn.VerifyHostname(Address)
 
 	if err != nil {
-		logrus.Error(err)
+		log.Error(err)
 	}
 
 	// Get end-entity certificate (leaf certificate) from the X.509 certificate chain.
@@ -43,9 +41,9 @@ func TestTLSCertificate(Address string) {
 
 	// Print the certificate expiration in number of days left.
 	if daysUntilExpiration > 0 {
-		logrus.Infof("Certificate for %s expires in %v days", strings.Join(leafCert.DNSNames[:], ", "), daysUntilExpiration)
+		log.Infof("Certificate for %s expires in %v days", strings.Join(leafCert.DNSNames[:], ", "), daysUntilExpiration)
 
 	} else {
-		logrus.Errorf("Certificate for %s is expired!", Address)
+		log.Errorf("Certificate for %s is expired!", Address)
 	}
 }

@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 // IsIPv4 Checks whether the given string is a valid IPv4 address.
@@ -41,12 +41,12 @@ func ParseAddress(address string) (domain string, err error) {
 		domain = u.Host
 		err = nil
 
-		logrus.Debugf("Parsed address: %s", domain)
+		log.Debugf("Parsed address: %s", domain)
 		return
 	}
 
 	domain = u.Host
 
-	logrus.Debugf("Parsed address: %s", domain)
+	log.Debugf("Parsed address: %s", domain)
 	return
 }

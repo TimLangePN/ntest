@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -17,16 +17,16 @@ func TestHttpsRedirect(Address string) {
 	resp, err := http.Get(httpProtocol + Address)
 
 	if err != nil {
-		logrus.Error(err)
+		log.Error(err)
 	}
 
 	defer resp.Body.Close() // Free file descriptor to prevent resource leak.
 
 	if strings.HasPrefix(resp.Request.URL.String(), httpsProtocol) {
-		logrus.Info("HTTPS redirect detected")
+		log.Info("HTTPS redirect detected")
 	} else {
-		logrus.Warn("HTTPS redirect undetected")
+		log.Warn("HTTPS redirect undetected")
 	}
 
-	logrus.Debugf("HTTPS redirect returned a: %s", resp.Status)
+	log.Debugf("HTTPS redirect returned a: %s", resp.Status)
 }

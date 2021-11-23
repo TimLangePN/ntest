@@ -4,15 +4,15 @@ import (
 	"net"
 	"strings"
 
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 // LookupHost Looks up the given host using the local resolver.
 func LookupHost(Address string) {
 	addresses, err := net.LookupHost(Address)
 	if err != nil {
-		logrus.Error(err)
+		log.Error(err)
 	}
 
-	logrus.Infof("DNS hosts: %s", strings.Join(addresses[:], ", "))
+	log.Infof("DNS hosts: %s", strings.Join(addresses[:], ", "))
 }

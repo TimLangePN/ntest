@@ -9,7 +9,7 @@ import (
 	ping "github.com/bschaatsbergen/ntest/pkg/ping"
 	"github.com/bschaatsbergen/ntest/pkg/tls"
 	"github.com/bschaatsbergen/ntest/pkg/utils"
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -26,7 +26,7 @@ var (
 		Run: func(cmd *cobra.Command, args []string) {
 
 			if condition := options.Address == ""; condition {
-				logrus.Error("address flag is required")
+				log.Error("address flag is required")
 				os.Exit(1)
 			}
 
@@ -42,7 +42,7 @@ func init() {
 	rootCmd.Flags().BoolVarP(&options.Debug, "debug", "d", false, "set log level to debug")
 }
 
-// configureLogLevel If an existing log level environment variable is present, re-use that to configure logrus.
+// configureLogLevel If an existing log level environment variable is present, re-use that to configure log.
 func configureLogLevel(debugLogsEnabled bool) {
 	logLevelStr, ok := os.LookupEnv("LOG_LEVEL")
 	if !ok {
@@ -51,17 +51,16 @@ func configureLogLevel(debugLogsEnabled bool) {
 	if debugLogsEnabled {
 		logLevelStr = "debug"
 	}
-	logLevel, err := logrus.ParseLevel(logLevelStr)
+	logLevel, err := log.ParseLevel(logLevelStr)
 	if err != nil {
-		logLevel = logrus.InfoLevel
+		logLevel = log.InfoLevel
 	}
-	logrus.SetLevel(logLevel)
+	log.SetLevel(logLevel)
 }
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		logrus.Error(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 }
 
@@ -72,8 +71,7 @@ func Test(options model.Options) {
 	domain, err := utils.ParseAddress(options.Address)
 
 	if err != nil {
-		logrus.Error(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 
 	ping.MeasureLatency(domain, options.PacketCount)
