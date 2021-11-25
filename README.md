@@ -30,14 +30,14 @@ If you prefer grabbing `ntest` its binaries, download the latest from the the **
 Using `ntest` is fairly simple. You only need to provide the address by using the `-a` flag, doing so will already allow you to perform all the tests.
 
 ```sh
-❯ nstest -a bschaatsbergen.com
+❯ ntest -a bschaatsbergen.com
 ```
 
 See the other optional flags below.
 
 ```sh
 ❯ ntest -h
-ntest - run multiple tests against any ip or address 🩺
+ntest - cross-platform cli app that runs multiple tests against any address.
 
 Usage:
   ntest [flags]
@@ -47,6 +47,7 @@ Flags:
   -d, --debug              set log level to debug
   -h, --help               help for ntest
       --packet-count int   amount of packets that should be sent (default 1)
+  -v, --version            version for ntest
 ```
 
 `ntest` in action:
