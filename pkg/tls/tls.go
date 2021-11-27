@@ -6,30 +6,31 @@ import (
 	"strings"
 	"time"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/bschaatsbergen/ntest/pkg/model"
+	"github.com/sirupsen/logrus"
 )
 
 const (
-	httpsPort = ":443"
+	DefaultHTTPSPort = ":443"
 )
 
 // TestTLSCertificate Performs a TLS handshake with the given server and returns the TLS connection
 // in order to be able to perform further operations on it, e.g. calculate the leaf certificate's expiration date.
-func TestTLSCertificate(Address string) {
+func TestTLSCertificate(options model.Options) {
 
-	conn, err := tls.Dial("tcp", Address+httpsPort, nil)
+	conn, err := tls.Dial("tcp", options.ParsedAddress+DefaultHTTPSPort, nil)
 
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 
 	defer conn.Close() // close the underlying TLS connection.
 
 	// Check if the peer certificate chain is valid.
-	err = conn.VerifyHostname(Address)
+	err = conn.VerifyHostname(options.ParsedAddress)
 
 	if err != nil {
-		log.Error(err)
+		logrus.Error(err)
 	}
 
 	// Get end-entity certificate (leaf certificate) from the X.509 certificate chain.
@@ -41,9 +42,9 @@ func TestTLSCertificate(Address string) {
 
 	// Print the certificate expiration in number of days left.
 	if daysUntilExpiration > 0 {
-		log.Infof("Certificate for %s expires in %v days", strings.Join(leafCert.DNSNames[:], ", "), daysUntilExpiration)
+		logrus.Infof("Certificate for %s expires in %v days", strings.Join(leafCert.DNSNames[:], ", "), daysUntilExpiration)
 
 	} else {
-		log.Errorf("Certificate for %s is expired!", Address)
+		logrus.Errorf("Certificate for %s is expired!", options.ParsedAddress)
 	}
 }

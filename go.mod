@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.2.1
+	github.com/xlab/treeprint v1.1.0
 )
 
 require (

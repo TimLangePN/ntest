@@ -9,7 +9,7 @@ import (
 	"github.com/bschaatsbergen/ntest/pkg/ping"
 	"github.com/bschaatsbergen/ntest/pkg/tls"
 	"github.com/bschaatsbergen/ntest/pkg/utils"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -25,8 +25,8 @@ var (
 		Version: version, // The version is set during the build by making using of `go build -ldflags`
 		Run: func(cmd *cobra.Command, args []string) {
 
-			if condition := options.Address == ""; condition {
-				log.Error("address flag is required")
+			if condition := options.RawAddress == ""; condition {
+				logrus.Error("address flag is required")
 				os.Exit(1)
 			}
 
@@ -37,12 +37,13 @@ var (
 )
 
 func init() {
-	rootCmd.Flags().StringVarP(&options.Address, "address", "a", "", "ip or address to perform tests against")
+	rootCmd.Flags().StringVarP(&options.RawAddress, "address", "a", "", "ip or address to perform tests against")
 	rootCmd.Flags().IntVar(&options.PacketCount, "packet-count", 1, "amount of packets that should be sent")
 	rootCmd.Flags().BoolVarP(&options.Debug, "debug", "d", false, "set log level to debug")
+	rootCmd.Flags().BoolVar(&options.ReturnResponseHeaders, "headers", false, "return the response headers")
 }
 
-// configureLogLevel If an existing log level environment variable is present, re-use that to configure log.
+// configureLogLevel If an existing log level environment variable is present, re-use that to configure logrus.
 func configureLogLevel(debugLogsEnabled bool) {
 	logLevelStr, ok := os.LookupEnv("LOG_LEVEL")
 	if !ok {
@@ -51,16 +52,16 @@ func configureLogLevel(debugLogsEnabled bool) {
 	if debugLogsEnabled {
 		logLevelStr = "debug"
 	}
-	logLevel, err := log.ParseLevel(logLevelStr)
+	logLevel, err := logrus.ParseLevel(logLevelStr)
 	if err != nil {
-		logLevel = log.InfoLevel
+		logLevel = logrus.InfoLevel
 	}
-	log.SetLevel(logLevel)
+	logrus.SetLevel(logLevel)
 }
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 }
 
@@ -68,17 +69,23 @@ func Execute() {
 func Test(options model.Options) {
 
 	// We first parse the given address and return the address.Host.
-	domain, err := utils.ParseAddress(options.Address)
+	parsedAddress, err := utils.ParseAddress(options.RawAddress)
+
+	options.ParsedAddress = parsedAddress
 
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 
-	ping.Ping(domain, options.PacketCount)
+	ping.Ping(options)
 
-	https.TestHttpsRedirect(domain)
+	if options.ReturnResponseHeaders {
+		https.LogResponseHeaders(options)
+	}
 
-	tls.TestTLSCertificate(domain)
+	https.TestHttpsRedirect(options)
 
-	dns.LookupHost(domain)
+	tls.TestTLSCertificate(options)
+
+	dns.LookupHost(options)
 }

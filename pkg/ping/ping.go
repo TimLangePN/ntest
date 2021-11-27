@@ -1,48 +1,45 @@
 package ping
 
 import (
+	"github.com/bschaatsbergen/ntest/pkg/model"
 	"github.com/go-ping/ping"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
-var (
-	Statistics *ping.Statistics // Ping statistics that are set when calling pingAddress.
-)
+// Ping is a thin wrapper around the pingAddress function
+func Ping(options model.Options) {
+	stats := pingAddress(options.ParsedAddress, options.PacketCount)
+
+	if stats.PacketLoss > 0 {
+		logrus.Warnf("Detected %d%% packet loss!", int(stats.PacketLoss))
+	}
+
+	logrus.Infof("Round-trip time: %dms", stats.AvgRtt.Milliseconds())
+}
 
 // pingAddress Ping a host and return a set of statistics.
-func pingAddress(Address string, PacketCount int) {
-	pinger, err := ping.NewPinger(Address)
+func pingAddress(address string, packetCount int) *ping.Statistics {
+	pinger, err := ping.NewPinger(address)
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 
 	defer pinger.Stop() // Gracefully close the pinger after it's done.
 
-	pinger.Count = PacketCount
+	pinger.Count = packetCount
 
-	if PacketCount == 1 {
-		log.Debugf("Sending %d packet to: %s", pinger.Count, pinger.Addr())
+	if packetCount == 1 {
+		logrus.Debugf("Sending %d packet to: %s", pinger.Count, pinger.Addr())
 	} else {
-		log.Debugf("Sending %d packets to: %s", pinger.Count, pinger.Addr())
+		logrus.Debugf("Sending %d packets to: %s", pinger.Count, pinger.Addr())
 	}
 
 	err = pinger.Run() // Blocks until finished.
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 
-	log.Debugf("Packets: Sent = %d, Received = %d, Lost = %d (%d%% loss)", pinger.PacketsSent, pinger.PacketsRecv, pinger.PacketsSent-pinger.PacketsRecv, int(pinger.Statistics().PacketLoss))
+	logrus.Debugf("Packets: Sent = %d, Received = %d, Lost = %d (%d%% loss)", pinger.PacketsSent, pinger.PacketsRecv, pinger.PacketsSent-pinger.PacketsRecv, int(pinger.Statistics().PacketLoss))
 
-	Statistics = pinger.Statistics()
-}
-
-// Ping is a thin wrapper around the pingAddress function
-func Ping(Address string, PacketCount int) {
-	pingAddress(Address, PacketCount)
-
-	if Statistics.PacketLoss > 0 {
-		log.Warnf("Detected %d%% packet loss!", int(Statistics.PacketLoss))
-	}
-
-	log.Infof("Round-trip time: %dms", Statistics.AvgRtt.Milliseconds())
+	return pinger.Statistics()
 }
