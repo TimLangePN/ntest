@@ -15,5 +15,5 @@ func LookupHost(options model.Options) {
 		logrus.Error(err)
 	}
 
-	logrus.Infof("DNS hosts: %s", strings.Join(addresses[:], ", "))
+	log.Infof("Hosts: %s", strings.Join(addresses[:], ", "))
 }

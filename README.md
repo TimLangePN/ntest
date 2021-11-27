@@ -10,7 +10,7 @@
 
 ## About ntest
 
-Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain. It currently performs the following tests: _https redirect, certificate expiration, average round-trip time, measure packet-loss and DNS host look-up_.
+Having the ability to run common tests against any domain often comes in quite handy. `ntest` aims to provide you with the most necessary tests you would want to run against a domain.
 
 ## Installation 
 
@@ -57,7 +57,7 @@ Flags:
 INFO[0020] Round-trip time: 13ms
 INFO[0036] HTTPS redirect detected
 INFO[0036] Certificate for bschaatsbergen.com, *.bschaatsbergen.com expires in 186 days
-INFO[0036] DNS hosts: 52.222.138.52, 52.222.138.100, 52.222.138.23, 52.222.138.36
+INFO[0036] Hosts: 52.222.138.52, 52.222.138.100, 52.222.138.23, 52.222.138.36
 ```
 
 It's also possible measure the average round-trip time by sending multiple packets.
